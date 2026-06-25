@@ -1,0 +1,37 @@
+package org.firstinspires.ftc.teamcode.util;
+
+public class Pose2d {
+    public double x, y;
+    public Rotation2d heading;
+
+    public Pose2d(double x, double y, Rotation2d heading) {
+        this.x = x;
+        this.y = y;
+        this.heading = heading;
+    }
+
+    public Pose2d(double x, double y, double heading) {
+        this(x, y, new Rotation2d(heading));
+    }
+
+    public Pose2d() {
+        this(0, 0, new Rotation2d(0));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Pose2d(x: %.2f, y: %.2f, heading: %.2f)", x, y, heading.getDegrees());
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public Rotation2d getHeading() {
+        return heading;
+    }
+}
