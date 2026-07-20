@@ -31,17 +31,12 @@ public class SwerveDriveCommand extends Command {
         double vy = vySupplier.getAsDouble() * DrivetrainConstants.MAX_SPEED_MPS;
         double omega = omegaSupplier.getAsDouble() * DrivetrainConstants.MAX_ANGULAR_VELOCITY_RAD_PER_SEC;
 
-        ChassisSpeeds speeds;
+        ChassisSpeeds speeds = new ChassisSpeeds(vx, vy, omega);
         if (fieldCentricSupplier.getAsBoolean()) {
-            speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-                    vx, vy, omega, 
-                    drivetrain.getPose().getHeading()
-            );
+            drivetrain.driveFieldCentric(speeds);
         } else {
-            speeds = new ChassisSpeeds(vx, vy, omega);
+            drivetrain.drive(speeds);
         }
-
-        drivetrain.drive(speeds);
     }
 
     @Override

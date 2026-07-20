@@ -40,4 +40,52 @@ public class DrivetrainConstants {
     public static double STEER_P = 0.4;
     public static double STEER_I = 0.0;
     public static double STEER_D = 0.01;
+
+    public static final DrivetrainPIDConstants autoPIDConstants = new DrivetrainPIDConstants(
+            new PIDCoefficients(7.0, 0.0, 0.3),
+            new PIDCoefficients(9.0, 0.0, 0.2),
+            new Tolerances(0.01, 0.01),
+            new Tolerances(Math.toRadians(2.0), 0.01)
+    );
+
+    public final static class PIDCoefficients {
+        public final double kP;
+        public final double kI;
+        public final double kD;
+
+        public PIDCoefficients(double kP, double kI, double kD) {
+            this.kP = kP;
+            this.kI = kI;
+            this.kD = kD;
+        }
+    }
+
+    public final static class Tolerances {
+        public final double position;
+        public final double velocity;
+
+        public Tolerances(double position, double velocity) {
+            this.position = position;
+            this.velocity = velocity;
+        }
+    }
+
+    public final static class DrivetrainPIDConstants {
+        public final PIDCoefficients translationCoefficients;
+        public final PIDCoefficients rotationCoefficients;
+        public final Tolerances translationTolerances;
+        public final Tolerances rotationTolerances;
+
+        public DrivetrainPIDConstants(
+                PIDCoefficients translationCoefficients,
+                PIDCoefficients rotationCoefficients,
+                Tolerances translationTolerances,
+                Tolerances rotationTolerances) {
+            this.translationCoefficients = translationCoefficients;
+            this.rotationCoefficients = rotationCoefficients;
+            this.translationTolerances = translationTolerances;
+            this.rotationTolerances = rotationTolerances;
+        }
+    }
+
 }

@@ -115,6 +115,15 @@ public class SwerveDrivetrain implements Subsystem {
         lastDesiredStates = states;
     }
 
+    public void driveFieldCentric(ChassisSpeeds fieldSpeeds) {
+        drive(ChassisSpeeds.fromFieldRelativeSpeeds(
+                fieldSpeeds.vxMetersPerSecond,
+                fieldSpeeds.vyMetersPerSecond,
+                fieldSpeeds.omegaRadiansPerSecond,
+                getPose().getHeading()
+        ));
+    }
+
     public Pose2d getPose() {
         if (!isInitialized) return new Pose2d();
         SparkFunOTOS.Pose2D otosPose = otos.getPosition();

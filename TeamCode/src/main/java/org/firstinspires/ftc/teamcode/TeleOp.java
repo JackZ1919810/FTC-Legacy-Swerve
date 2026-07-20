@@ -2,15 +2,15 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import dev.nextftc.ftc.NextFTCOpMode;
 import dev.nextftc.core.components.SubsystemComponent;
 import org.firstinspires.ftc.teamcode.swerve.SwerveDrivetrain;
 import org.firstinspires.ftc.teamcode.commands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.util.Pose2d;
 
-@TeleOp(name = "Swerve TeleOp")
-public class SwerveTeleOp extends NextFTCOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
+public class TeleOp extends NextFTCOpMode {
     private SwerveDrivetrain drivetrain;
     private boolean fieldCentric = true;
     private boolean lastBack = false;
@@ -42,8 +42,8 @@ public class SwerveTeleOp extends NextFTCOpMode {
     @Override
     public void onUpdate() {
         Pose2d pose = drivetrain.getPose();
-        telemetry.addData("X", "%.2f m", pose.getX());
-        telemetry.addData("Y", "%.2f m", pose.getY());
+        telemetry.addData("X", "%.2f in", pose.getX() * 39.3701);
+        telemetry.addData("Y", "%.2f in", pose.getY() * 39.3701);
         telemetry.addData("Heading", "%.2f deg", pose.getHeading().getDegrees());
         telemetry.addData("Drive Mode", fieldCentric ? "Field Centric" : "Robot Centric");
 

@@ -9,10 +9,14 @@ public class PIDController {
     private double errorSum;
     private double lastError;
     private double lastTime;
+    private double lastRate;
 
     private boolean continuous;
     private double minInput;
     private double maxInput;
+
+    private double positionTolerance = 0.05;
+    private double velocityTolerance = Double.POSITIVE_INFINITY;
 
     public PIDController(double kP, double kI, double kD) {
         this.kP = kP;
@@ -22,6 +26,15 @@ public class PIDController {
 
     public void setSetpoint(double setpoint) {
         this.setpoint = setpoint;
+    }
+
+    public void setTolerance(double positionTolerance) {
+        this.positionTolerance = positionTolerance;
+    }
+
+    public void setTolerance(double positionTolerance, double velocityTolerance) {
+        this.positionTolerance = positionTolerance;
+        this.velocityTolerance = velocityTolerance;
     }
 
     public void enableContinuousInput(double min, double max) {
@@ -50,14 +63,20 @@ public class PIDController {
 
         lastError = error;
         lastTime = currentTime;
+        lastRate = errorRate;
 
         return kP * error + kI * errorSum + kD * errorRate;
+    }
+
+    public boolean atSetpoint() {
+        return Math.abs(lastError) < positionTolerance && Math.abs(lastRate) < velocityTolerance;
     }
 
     public void reset() {
         errorSum = 0;
         lastError = 0;
         lastTime = 0;
+        lastRate = 0;
     }
 
     public void setP(double kP) { this.kP = kP; }
