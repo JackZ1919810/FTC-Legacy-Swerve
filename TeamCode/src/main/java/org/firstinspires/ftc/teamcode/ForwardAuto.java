@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.util.Rotation2d;
 
 @Autonomous(name = "Forward 12 Inch Auto")
 public class ForwardAuto extends NextFTCOpMode {
-    
     private SwerveDrivetrain drivetrain;
 
     @Override
@@ -34,5 +33,10 @@ public class ForwardAuto extends NextFTCOpMode {
 
         // Schedule the command to run until completion using default PID constants
         new PIDToPosition(drivetrain, targetPose).schedule();
+    }
+
+    @Override
+    public void onUpdate() {
+        telemetry.addData("x pos", drivetrain.getPose().x);
     }
 }
